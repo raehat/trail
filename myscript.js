@@ -1164,11 +1164,13 @@ const contract_ether_address = '0x610319176dFA876d438d20E71C390Cb74ED5Ab66'
 
 const erc20_escrow_address = "0x9dAa521803Db7d044625029C60977e9A7Fe82BF5"
 
-const createMetaMaskProvider = require('metamask-extension-provider')
+
 
 var ownTokenAddress = ""
 
-const provider = createMetaMaskProvider()
+const provider = window.ethereum
+console.log(provider)
+
 const Web3 = require('web3')
 const web3 = new Web3(provider);
 
@@ -1260,7 +1262,7 @@ async function send_eth() {
 }
 
 window.onload = async function () {
-
+    console.log(window.location.href);
     if (window.location.href.indexOf("popup.html") !== -1)
         document.getElementById("connect_button").addEventListener("click", connect_metamask);
     else if (window.location.href.indexOf("homepage.html") !== -1) {
@@ -1691,7 +1693,11 @@ window.onload = async function () {
 
 
 async function connect_metamask() {
+    console.log("abd");
+    console.log(provider)
     accounts = await provider.request({ method: 'eth_requestAccounts' })
+    
+    console.log(accounts)
     if (accounts.length > 0) {
         window.location = './pages/homepage.html'
     }
